@@ -1,0 +1,341 @@
+/*Обнуление*/
+*,*:before,*:after{
+	padding: 0;
+	margin: 0;
+	border: 0;
+	box-sizing: border-box;
+}
+html,body{
+	height: 100%;
+	background: url('../img/bg.webp') 0 0/cover no-repeat;
+	font-family:consolas, monospace;
+	color: #fff;
+	font-size: 16px;
+}
+a{
+	text-decoration: none;
+}
+.wrapper{
+	min-height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+.game {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	cursor: url("../img/cursor.png") 24 24, auto;
+}
+.game:hover .game__win{
+	animation: win 60s steps(1) forwards;
+}
+.game:hover .game__counter:after{
+	animation: timer_1 60s steps(60) forwards;
+}
+.game:hover .game__text span:after{
+	animation: timer_2 60s steps(60) forwards;
+}
+.game__body:hover .game__counter:after,
+.game__body:hover .game__text span:after{
+	animation-play-state: paused;
+}
+.game__body,
+.game__items {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+}
+.game__body:before,
+.game__body:after,
+.game__items:before,
+.game__items:after{
+	content: '';
+	pointer-events: all;
+	width: 23.333vw;
+	height: 23.333vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	display: inline-block;
+}
+.game__body:before{
+	background: url('../img/dog.png') 0 0 no-repeat;
+	animation: fly_1 3s infinite;
+}
+.game__body:after{
+	background: url('../img/bear.png') 0 0 no-repeat;
+	animation: fly_2 7s infinite;
+}
+.game__items:before{
+	background: url('../img/crocodile.png') 0 0 no-repeat;
+	animation: fly_3 5s infinite;
+}
+.game__items:after{
+	background: url('../img/snake.png') 0 0 no-repeat;
+	animation: fly_4 11s infinite;
+}
+@keyframes fly_1{
+	25% {transform: translate(90.667vw, 0vh);}
+	50% {transform: translate(90.667vw, 76.667vh);}
+	75% {transform: translate(0vw, 76.667vh);}
+	0%, 100% {transform: translate(0px, 0px);}
+}
+@keyframes fly_2{
+	25% {transform: translate(0vw, 78.667vh);}
+	50% {transform: translate(88.667vw, 0vh);}
+	75% {transform: translate(88.667vw, 78.667vh);}
+	0%, 100% {transform: translate(0px, 0px);}
+}
+@keyframes fly_3{
+	25% {transform: translate(90.667vw, 0vh);}
+	50% {transform: translate(0vw, 79.667vh);}
+	75% {transform: translate(90.667vw, 79.667vh);}
+	0%, 100% {transform: translate(0px, 0px);}
+}
+@keyframes fly_4{
+	25% {transform: translate(90.667vw, 0vh);}
+	50% {transform: translate(0vw, 77.667vh);}
+	75% {transform: translate(90.667vw, 77.667vh);}
+	0%, 100% {transform: translate(0px, 0px);}
+}
+@keyframes win{
+	0%{}
+	100%{
+		visibility: visible;
+	}
+}
+@keyframes timer_1{
+	0%{
+		text-indent: -300ch;
+	}
+	50%{
+		color: yellow;
+	}
+	100% {
+		color: green;
+		text-indent: 0ch;
+	}
+}
+@keyframes timer_2{
+	0%{
+		text-indent: 0ch;
+	}
+	50%{
+		color: yellow;
+	}
+	100% {
+		color: green;
+		text-indent: -300ch;
+	}
+}
+.game__body:hover:before,
+.game__body:hover:after,
+.game__body:hover .game__items:before,
+.game__body:hover .game__items:after{
+	display: none;
+}
+.game__body:hover .game__items{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 20;
+	background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('../img/bg.webp') 0 0/cover no-repeat;
+	display: flex;
+	justify-content:center;
+	align-items: center;
+	text-align: center;
+	pointer-events: all;
+}
+.game__body:hover .game__text{
+	visibility: visible;
+}
+.game__text {
+	font-size: 40px;
+	visibility: hidden;
+}
+.game__text span{
+	font-size: 40px;
+	width: 109px;
+	display: inline-block;
+	vertical-align: middle;
+	overflow: hidden;
+	color: green;
+}
+.game__counter {
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+	width: 72px;
+	font-size: 26px;
+	overflow: hidden;
+	white-space: nowrap;
+	z-index: 9;
+}
+.game__text span:after,
+.game__counter:after{
+	display: block;
+	content: "00:0000:0100:0200:0300:0400:0500:0600:0700:0800:0900:1000:1100:1200:1300:1400:1500:1600:1700:1800:1900:2000:2100:2200:2300:2400:2500:2600:2700:2800:2900:3000:3100:3200:3300:3400:3500:3600:3700:3800:3900:4000:4100:4200:4300:4400:4500:4600:4700:4800:4900:5000:5100:5200:5300:5400:5500:5600:5700:5800:5901:00";
+}
+.game__win {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.5)), url('../img/bg.webp') 0 0/cover no-repeat;
+	display: flex;
+	justify-content:center;
+	align-items: center;
+	text-align: center;
+	font-size: 40px;
+	visibility: hidden;
+}
+
+.info {
+	position: absolute;
+	right: 70px;
+	bottom: 20px;
+	z-index: 50;
+}
+.info__icon {
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	border: 1px solid #fff;
+	font-size: 20px;
+	color: #fff;
+	text-align: center;
+	line-height: 23px;
+	position: relative;
+	z-index: 2;
+	transition: 0.6s;
+}
+.info__icon:hover {
+	transition: 0.6s;
+	opacity: 0.6;
+}
+.info__body {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.5);
+	min-width: 320px;
+	border-radius: 15px 0 10px 0;
+	padding: 30px 10px 30px 30px;
+}
+.info__body:target{
+	display: block;
+}
+.info__close {
+	position: absolute;
+	top: 6px;
+	right: 10px;
+	font-size: 22px;
+	color: #fff;
+	transition: 0.6s;
+}
+.info__close:hover {
+	transition: 0.6s;
+	opacity: 0.6;
+}
+.info__text {
+	padding: 0px 20px 0px 0px;
+}
+.info__text p{
+	margin: 0px 0px 10px 0px;
+}
+.info__text p:last-child{
+	margin: 0;
+}
+
+.author {
+	position: absolute;
+	right: 20px;
+	bottom: 15px;
+	z-index: 50;
+}
+.author__icon {
+	display: inline-block;
+	position: relative;
+	z-index: 2;
+	transition: 0.6s;
+}
+.author__icon img {
+	width: 31px;
+}
+.author__icon img:hover {
+	opacity: 0.6;
+	transition: 0.6s;
+}
+.author__body {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.5);
+	min-width: 280px;
+	border-radius: 15px 0 10px 0;
+	padding: 30px 10px 30px 30px;
+}
+.author__body:target{
+	display: block;
+}
+.author__close {
+	position: absolute;
+	top: 6px;
+	right: 10px;
+	font-size: 22px;
+	color: #fff;
+	transition: 0.6s;
+}
+.author__close:hover{
+	transition: 0.6s;
+	opacity: 0.6;
+}
+.author__text {
+	padding: 0px 0px 0px 0px;
+}
+.author__text img {
+	width: 25px;
+	transition: 0.6s;
+}
+.author__text img:hover {
+	opacity: 0.6;
+	transition: 0.6s;
+}
+.author__text span{
+	padding: 0px 20px 0px 0px;
+}
+.author__text span:last-child{
+	padding: 0;
+}
+
+.restart {
+	position: absolute;
+	right: 118px;
+	bottom: 15px;
+	z-index: 50;
+}
+.restart__icon {
+	display: inline-block;
+	position: relative;
+	z-index: 2;
+	transition: 0.6s;
+}
+.restart__icon img {
+	width: 25px;
+}
+.restart__icon img:hover {
+	opacity: 0.6;
+	transition: 0.6s;
+}
